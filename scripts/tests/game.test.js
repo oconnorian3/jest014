@@ -2,6 +2,15 @@
  * @jest-environment jsdom
  */
 
+const {defaults} = require('jest-config');
+
+/** @type {import('jest').Config} */
+const config = {
+  moduleFileExtensions: [...defaults.moduleFileExtensions, 'mts', 'cts'],
+};
+
+module.exports = config;
+
 const { game } = require("../game");
 
 beforeAll(() => {
@@ -18,6 +27,12 @@ describe("game object contains correct keys", () => {
     });
     test("currentGame key exists", () => {
         expect("currentGame" in game).toBe(true);
+    });
+    test("choices key exists", () => {
+        expect("choices" in game).toBe(true);
+    });
+    test("choices contain correct ids", () => {
+        expect(game.choices).toEqual(["button1", "button2", "button3", "button4"]);
     });
 });
 
